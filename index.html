@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>LinkOne â Green Coffee Importers Alliance</title>
+<title>LinkOne — Green Coffee Importers Alliance</title>
 <style>
 body{font-family:system-ui,sans-serif;margin:0;bachkground:#f7f5ef;color:#222;}
 header{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;background:#fff;}
@@ -49,46 +49,46 @@ body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 <body>
 <header>
 <a href="/"><img src="images/logo-linkone.png" alt="LinkOne" onerror="this.replaceWith(Object.assign(document.createElement('strong'),{textContent:'LinkOne',style:'font-size:24px'}));"/></a>
-<nav>ãµã³ãã«ä¾é ¼ â</nav>
+<nav>サンプル依頼 →</nav>
 </header>
 <main>
-<h2>5ã¤ã®ç£å°ãã²ã¨ã¤ã®ãããã¯ã¼ã¯ã</h2>
-<p class="lead">å°å³ä¸ã®ããããã¯ãªãã¯ãã¦ãåç£å°ã®å°éåç¤¾ã»åæ±åç¨®ã»ä¸»è¦ãã­ã»ã¹ããè¦§ãã ããã</p>
+<h2>5つの産地、ひとつのネットワーク。</h2>
+<p class="lead">地図上のドットをクリックして、各産地の専門商社・取扱品種・主要プロセスをご覧ください。</p>
 <div id="originsMap" class="origins-map-wrapper">
-<button id="adminToggle" class="admin-toggle" title="ç®¡çã¢ã¼ã / Admin Mode">â</button>
+<button id="adminToggle" class="admin-toggle" title="管理モード / Admin Mode">⚙</button>
 <img class="map-bg" src="images/world-map.png" alt="World Map" />
 <div class="origins-dots-layer"></div>
 <div class="origin-popup" hidden></div>
 </div>
 </main>
 <div id="adminPanel" class="admin-panel" hidden>
-<button id="addDotBtn">ï¼ ç£å°ãè¿½å </button>
-<button id="exportBtn">JSONã¨ã¯ã¹ãã¼ã</button>
+<button id="addDotBtn">＋ 産地を追加</button>
+<button id="exportBtn">JSONエクスポート</button>
 <button id="copyJsonBtn" class="primary">📋 JSONをコピー</button>
 <button id="publishBtn" class="primary">💾 GitHubに保存</button>
-<label class="import-label">JSONã¤ã³ãã¼ã<input type="file" id="importFile" accept="application/json" hidden /></label>
-<button id="resetBtn" class="danger">ãªã»ãã</button>
-<span class="hint">ãã©ãã°ã§ç§»å Â· ããã«ã¯ãªãã¯ã§ç·¨é</span>
+<label class="import-label">JSONインポート<input type="file" id="importFile" accept="application/json" hidden /></label>
+<button id="resetBtn" class="danger">リセット</button>
+<span class="hint">ドラッグで移動 · ダブルクリックで編集</span>
 </div>
 <div id="originModal" class="origin-modal" hidden>
 <div class="origin-modal-inner">
-<h3>ç£å°ã®ç·¨é</h3>
-<label>å½å(JP)<input id="f_country"/></label>
-<label>å½å(EN)<input id="f_countryEn"/></label>
-<label>ã³ã¼ã<input id="f_code" maxlength="3"/></label>
+<h3>産地の編集</h3>
+<label>国名(JP)<input id="f_country"/></label>
+<label>国名(EN)<input id="f_countryEn"/></label>
+<label>コード<input id="f_code" maxlength="3"/></label>
 <label>No.<input id="f_no"/></label>
-<label>ã¤ã³ãã¼ã¿ã¼<input id="f_importer"/></label>
-<label>å°å<input id="f_region"/></label>
-<label>åç¨®<input id="f_varieties"/></label>
-<label>ãã­ã»ã¹<input id="f_process"/></label>
-<label>ã«ãããã¼ã<textarea id="f_cupNote"></textarea></label>
-<label>ã¹ãã¼ã¿ã¹<select id="f_status"><option value="active">å¬é</option><option value="recruiting">åéä¸­</option></select></label>
-<label>è²<input type="color" id="f_color"/></label>
-<label><input type="checkbox" id="f_blink"/> ç¹æ»ããã</label>
+<label>インポーター<input id="f_importer"/></label>
+<label>地域<input id="f_region"/></label>
+<label>品種<input id="f_varieties"/></label>
+<label>プロセス<input id="f_process"/></label>
+<label>カップノート<textarea id="f_cupNote"></textarea></label>
+<label>ステータス<select id="f_status"><option value="active">公開</option><option value="recruiting">募集中</option></select></label>
+<label>色<input type="color" id="f_color"/></label>
+<label><input type="checkbox" id="f_blink"/> 点滅させる</label>
 <div class="origin-modal-actions">
-<button class="save" id="saveDotBtn">ä¿å­</button>
-<button class="delete" id="deleteDotBtn">åé¤</button>
-<button class="cancel" id="cancelDotBtn">ã­ã£ã³ã»ã«</button>
+<button class="save" id="saveDotBtn">保存</button>
+<button class="delete" id="deleteDotBtn">削除</button>
+<button class="cancel" id="cancelDotBtn">キャンセル</button>
 </div>
 </div>
 </div>
@@ -96,12 +96,12 @@ body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 const STORAGE_KEY='linkone.origins.v1';
 const ADMIN_KEY='linkone-2026';
 const DEFAULTS=[
-{id:"br",no:"01",code:"BR",country:"ãã©ã¸ã«",countryEn:"Brazil",importer:"Mirai Seeds Inc.",region:"Cerrado Â· Sul de Minas",varieties:"Yellow Bourbon Â· CatuaÃ­",process:"Natural / Pulped Natural",cupNote:"ãããããã§ã³ã¬ã¼ãããªã¬ã³ã¸",status:"active",x:32.5,y:62,color:"#e85a3c",blink:true,farm:"",producer:""},
-{id:"pa",no:"02",code:"PA",country:"ããã",countryEn:"Panama",importer:"Brisa and Tierra",region:"Boquete Â· VolcÃ¡n",varieties:"Geisha Â· Caturra",process:"Washed / Natural",cupNote:"ãã­ã¼ã©ã«ããã«ã¬ã¢ãããããã¼",status:"active",x:24.5,y:52,color:"#f5b431",blink:true,farm:"",producer:""},
-{id:"tw",no:"03",code:"TW",country:"å°æ¹¾",countryEn:"Taiwan",importer:"ORIOWL Co., Ltd.",region:"Alishan Â· Yunlin",varieties:"Typica Â· SL34",process:"Washed / Honey",cupNote:"ã¯ãªã¼ã³ãã·ãã©ã¹ããã©ã¦ã³ã·ã¥ã¬ã¼",status:"active",x:81.5,y:47,color:"#2ec4b6",blink:true,farm:"",producer:""},
-{id:"cr",no:"04",code:"CR",country:"ã³ã¹ã¿ãªã«",countryEn:"Costa Rica",importer:"PuraVida",region:"TarrazÃº Â· West Valley",varieties:"Caturra Â· Villa Sarchi",process:"Washed / Honey / Anaerobic",cupNote:"ã¹ãã¼ã³ãã«ã¼ããããã¼ãã·ãã©ã¹",status:"active",x:22.5,y:50,color:"#7bc043",blink:true,farm:"",producer:""},
-{id:"co",no:"05",code:"CO",country:"ã³ã­ã³ãã¢",countryEn:"Colombia",importer:"åéä¸­",region:"Huila Â· Antioquia Â· NariÃ±o",varieties:"Caturra Â· Castillo Â· Pink Bourbon",process:"Washed / Natural / Anaerobic",cupNote:"ãã§ã³ã¬ã¼ããã­ã£ã©ã¡ã«ãèµ¤ãæå®",status:"recruiting",x:27,y:56,color:"#9aa0a6",blink:true,farm:"",producer:""},
-{id:"id",no:"06",code:"ID",country:"ã¤ã³ããã·ã¢",countryEn:"Indonesia",importer:"Rational Idea Inc.",region:"Sumatra Â· Sulawesi Â· Bali",varieties:"Typica Â· Lini S Â· Ateng",process:"Wet Hulled / Natural",cupNote:"ã¢ã¼ã·ã¼ãã¹ãã¤ã¹ããã¼ã¯ãã§ã³",status:"active",x:79,y:60.5,color:"#e85a3c",blink:true,farm:"",producer:""}
+{id:"br",no:"01",code:"BR",country:"ブラジル",countryEn:"Brazil",importer:"Mirai Seeds Inc.",region:"Cerrado · Sul de Minas",varieties:"Yellow Bourbon · Catuaí",process:"Natural / Pulped Natural",cupNote:"ナッツ、チョコレート、オレンジ",status:"active",x:32.5,y:62,color:"#e85a3c",blink:true,farm:"",producer:""},
+{id:"pa",no:"02",code:"PA",country:"パナマ",countryEn:"Panama",importer:"Brisa and Tierra",region:"Boquete · Volcán",varieties:"Geisha · Caturra",process:"Washed / Natural",cupNote:"フローラル、ベルガモット、ハニー",status:"active",x:24.5,y:52,color:"#f5b431",blink:true,farm:"",producer:""},
+{id:"tw",no:"03",code:"TW",country:"台湾",countryEn:"Taiwan",importer:"ORIOWL Co., Ltd.",region:"Alishan · Yunlin",varieties:"Typica · SL34",process:"Washed / Honey",cupNote:"クリーン、シトラス、ブラウンシュガー",status:"active",x:81.5,y:47,color:"#2ec4b6",blink:true,farm:"",producer:""},
+{id:"cr",no:"04",code:"CR",country:"コスタリカ",countryEn:"Costa Rica",importer:"PuraVida",region:"Tarrazú · West Valley",varieties:"Caturra · Villa Sarchi",process:"Washed / Honey / Anaerobic",cupNote:"ストーンフルーツ、ハニー、シトラス",status:"active",x:22.5,y:50,color:"#7bc043",blink:true,farm:"",producer:""},
+{id:"co",no:"05",code:"CO",country:"コロンビア",countryEn:"Colombia",importer:"募集中",region:"Huila · Antioquia · Nariño",varieties:"Caturra · Castillo · Pink Bourbon",process:"Washed / Natural / Anaerobic",cupNote:"チョコレート、キャラメル、赤い果実",status:"recruiting",x:27,y:56,color:"#9aa0a6",blink:true,farm:"",producer:""},
+{id:"id",no:"06",code:"ID",country:"インドネシア",countryEn:"Indonesia",importer:"Rational Idea Inc.",region:"Sumatra · Sulawesi · Bali",varieties:"Typica · Lini S · Ateng",process:"Wet Hulled / Natural",cupNote:"アーシー、スパイス、ダークチョコ",status:"active",x:79,y:60.5,color:"#e85a3c",blink:true,farm:"",producer:""}
 ];
 const params=new URLSearchParams(location.search);
 const hashParams=new URLSearchParams(location.hash.replace(/^#/,''));
@@ -118,22 +118,22 @@ if(isAdmin)document.body.classList.add('admin-mode');
 // Keyboard shortcut: Ctrl+Shift+E to toggle admin mode (works inside iframe too)
 document.getElementById('adminToggle').addEventListener('click',()=>{
   if(isAdmin){
-    if(!confirm('ç®¡çã¢ã¼ããè§£é¤ãã¾ããï¼ / Disable admin mode?'))return;
+    if(!confirm('管理モードを解除しますか？ / Disable admin mode?'))return;
     try{sessionStorage.removeItem(ADMIN_FLAG_KEY);}catch(_){};try{localStorage.removeItem(ADMIN_FLAG_KEY);}catch(_){};location.reload();return;
   }
-  const k=prompt('ç®¡çã­ã¼ãå¥å / Enter admin key:','');
+  const k=prompt('管理キーを入力 / Enter admin key:','');
   if(k===null)return;
   if(k===ADMIN_KEY){try{sessionStorage.setItem(ADMIN_FLAG_KEY,'1');}catch(_){};try{localStorage.setItem(ADMIN_FLAG_KEY,'1');}catch(_){};location.reload();}
-  else alert('ã­ã¼ãéãã¾ã / Wrong key');
+  else alert('キーが違います / Wrong key');
 });
 window.addEventListener('keydown',e=>{
   if(e.ctrlKey&&e.shiftKey&&(e.key==='E'||e.key==='e')){
     e.preventDefault();
-    const k=prompt('ç®¡çã­ã¼ãå¥å / Enter admin key (ç©ºæ¬ã§è§£é¤ / blank to disable):','');
+    const k=prompt('管理キーを入力 / Enter admin key (空欄で解除 / blank to disable):','');
     if(k===null)return;
     if(k===ADMIN_KEY){localStorage.setItem(ADMIN_FLAG_KEY,'1');location.reload();}
     else if(k===''){localStorage.removeItem(ADMIN_FLAG_KEY);location.reload();}
-    else alert('ã­ã¼ãéãã¾ã / Wrong key');
+    else alert('キーが違います / Wrong key');
   }
 });
 const wrapper=document.getElementById('originsMap');
@@ -150,14 +150,14 @@ const d=document.createElement('div');
 d.className='origin-dot'+(o.blink?' blink':'');
 d.style.left=o.x+'%';d.style.top=o.y+'%';
 d.style.setProperty('--c',o.color||'#e85a3c');
-d.title=o.country+' â '+o.importer;
+d.title=o.country+' — '+o.importer;
 d.addEventListener('click',e=>{e.stopPropagation();if(!d.dataset.dragged)showPopup(o);});
 if(isAdmin){enableDrag(d,o);d.addEventListener('dblclick',()=>openEdit(o.id));}
 layer.appendChild(d);
 });
 }
 function showPopup(o){
-popup.innerHTML='<div class="po-no">NÂ° '+o.no+' Â· '+o.code+'</div><h4>'+o.country+' <span style="color:#999;font-weight:400;font-size:12px;">/ '+(o.countryEn||'')+'</span></h4><div class="po-row"><b>COUNTRY</b><br>'+(o.country||'â')+'</div><div class="po-row"><b>REGION</b><br>'+(o.region||'â')+'</div><div class="po-row"><b>FARM</b><br>'+(o.farm||'â')+'</div><div class="po-row"><b>PRODUCER</b><br>'+(o.producer||'â')+'</div><div class="po-row"><b>IMPORTER</b><br>'+(o.importer||'â')+'</div>'+(isAdmin?'<button data-edit="'+o.id+'">ç·¨é</button>':'');
+popup.innerHTML='<div class="po-no">N° '+o.no+' · '+o.code+'</div><h4>'+o.country+' <span style="color:#999;font-weight:400;font-size:12px;">/ '+(o.countryEn||'')+'</span></h4><div class="po-row"><b>COUNTRY</b><br>'+(o.country||'—')+'</div><div class="po-row"><b>REGION</b><br>'+(o.region||'—')+'</div><div class="po-row"><b>FARM</b><br>'+(o.farm||'—')+'</div><div class="po-row"><b>PRODUCER</b><br>'+(o.producer||'—')+'</div><div class="po-row"><b>IMPORTER</b><br>'+(o.importer||'—')+'</div>'+(isAdmin?'<button data-edit="'+o.id+'">編集</button>':'');
 popup.style.left=o.x+'%';popup.style.top=o.y+'%';popup.hidden=false;
 const b=popup.querySelector('[data-edit]');if(b)b.addEventListener('click',()=>openEdit(o.id));
 }
@@ -184,7 +184,7 @@ window.addEventListener('pointermove',move);window.addEventListener('pointerup',
 function openEdit(id){
 let o;
 if(id){o=origins.find(x=>x.id===id);}
-else{o={id:'o'+Date.now(),no:'',code:'',country:'æ°ããç£å°',countryEn:'',importer:'',region:'',varieties:'',process:'',cupNote:'',status:'recruiting',x:50,y:50,color:'#e85a3c',blink:true,farm:"",producer:""};origins.push(o);}
+else{o={id:'o'+Date.now(),no:'',code:'',country:'新しい産地',countryEn:'',importer:'',region:'',varieties:'',process:'',cupNote:'',status:'recruiting',x:50,y:50,color:'#e85a3c',blink:true,farm:"",producer:""};origins.push(o);}
 editingId=o.id;
 ['country','countryEn','code','no','importer','region','varieties','process','cupNote','status','color'].forEach(k=>document.getElementById('f_'+k).value=o[k]||'');
 document.getElementById('f_blink').checked=!!o.blink;modal.hidden=false;
@@ -201,7 +201,7 @@ document.getElementById('copyJsonBtn').onclick=async()=>{const json=JSON.stringi
 document.getElementById('publishBtn').onclick=async()=>{const json=JSON.stringify(origins,null,2);try{await navigator.clipboard.writeText(json);}catch(e){}const ok=confirm('現在のデータをクリップボードにコピーしました。\n\nGitHubの編集ページを開いて、index.html 内の DEFAULTS 配列をこのJSONで置き換えて、「Commit changes」で保存してください。\n\n保存後、約1分で全訪問者に反映されます。\n\nGitHubの編集ページを開きますか？');if(ok){window.open('https://github.com/Itoh-M/LinkOne/edit/main/index.html','_blank');}};
 document.getElementById('importFile').onchange=async e=>{
 const f=e.target.files[0];if(!f)return;
-try{origins=JSON.parse(await f.text());persist();}catch(_){alert('JSONã¨ã©ã¼');}
+try{origins=JSON.parse(await f.text());persist();}catch(_){alert('JSONエラー');}
 };
 document.getElementById('saveDotBtn').onclick=()=>{
 const o=origins.find(x=>x.id===editingId);if(!o)return;
@@ -209,12 +209,12 @@ const o=origins.find(x=>x.id===editingId);if(!o)return;
 o.blink=document.getElementById('f_blink').checked;modal.hidden=true;persist();
 };
 document.getElementById('deleteDotBtn').onclick=()=>{
-if(!confirm('åé¤ãã¾ããï¼'))return;
+if(!confirm('削除しますか？'))return;
 origins=origins.filter(x=>x.id!==editingId);modal.hidden=true;persist();
 };
 document.getElementById('cancelDotBtn').onclick=()=>{modal.hidden=true;};
 document.getElementById('resetBtn').onclick=()=>{
-if(!confirm('ç·¨éåå®¹ãç ´æ£ãã¦åæå¤ã«æ»ãã¾ããï¼'))return;
+if(!confirm('編集内容を破棄して初期値に戻しますか？'))return;
 localStorage.removeItem(STORAGE_KEY);origins=DEFAULTS;render();
 };
 }
