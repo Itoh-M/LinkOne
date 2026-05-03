@@ -25,6 +25,7 @@ body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 .origin-popup .po-importer{font-weight:600;margin-bottom:4px;}
 .origin-popup .po-note{margin-top:8px;color:#444;font-style:italic;}
 .origin-popup button{margin-top:10px;padding:6px 10px;border:1px solid #ddd;background:#fff;border-radius:8px;cursor:pointer;}
+.admin-toggle{position:absolute;top:8px;right:8px;z-index:5;width:28px;height:28px;border:0;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);} .admin-toggle:hover{background:rgba(255,255,255,.3);}
 .admin-panel{position:fixed;bottom:16px;left:16px;z-index:9998;background:#111;color:#fff;padding:12px 14px;border-radius:14px;display:flex;gap:8px;align-items:center;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.25);}
 .admin-panel button,.admin-panel .import-label{background:#fff;color:#111;border:0;padding:8px 12px;border-radius:10px;cursor:pointer;font-size:13px;}
 .admin-panel button.danger{background:#e85a3c;color:#fff;}
@@ -50,6 +51,7 @@ body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 <h2>5つの産地、ひとつのネットワーク。</h2>
 <p class="lead">地図上のドットをクリックして、各産地の専門商社・取扱品種・主要プロセスをご覧ください。</p>
 <div id="originsMap" class="origins-map-wrapper">
+<button id="adminToggle" class="admin-toggle" title="管理モード / Admin Mode">⚙</button>
 <img class="map-bg" src="images/world-map.png" alt="World Map" />
 <div class="origins-dots-layer"></div>
 <div class="origin-popup" hidden></div>
@@ -99,13 +101,25 @@ const params=new URLSearchParams(location.search);
 const hashParams=new URLSearchParams(location.hash.replace(/^#/,''));
 const ADMIN_FLAG_KEY='linkone.adminMode';
 function checkAdmin(){
-  if(params.get('admin')==='1'&&params.get('key')===ADMIN_KEY){localStorage.setItem(ADMIN_FLAG_KEY,'1');return true;}
-  if(hashParams.get('admin')==='1'&&hashParams.get('key')===ADMIN_KEY){localStorage.setItem(ADMIN_FLAG_KEY,'1');return true;}
-  return localStorage.getItem(ADMIN_FLAG_KEY)==='1';
+  if(params.get('admin')==='1'&&params.get('key')===ADMIN_KEY){try{localStorage.setItem(ADMIN_FLAG_KEY,'1');}catch(_){};try{sessionStorage.setItem(ADMIN_FLAG_KEY,'1');}catch(_){};return true;}
+  if(hashParams.get('admin')==='1'&&hashParams.get('key')===ADMIN_KEY){try{localStorage.setItem(ADMIN_FLAG_KEY,'1');}catch(_){};try{sessionStorage.setItem(ADMIN_FLAG_KEY,'1');}catch(_){};return true;}
+  try{if(sessionStorage.getItem(ADMIN_FLAG_KEY)==='1')return true;}catch(_){};
+  try{if(localStorage.getItem(ADMIN_FLAG_KEY)==='1')return true;}catch(_){};
+  return false;
 }
 let isAdmin=checkAdmin();
 if(isAdmin)document.body.classList.add('admin-mode');
 // Keyboard shortcut: Ctrl+Shift+E to toggle admin mode (works inside iframe too)
+document.getElementById('adminToggle').addEventListener('click',()=>{
+  if(isAdmin){
+    if(!confirm('管理モードを解除しますか？ / Disable admin mode?'))return;
+    try{sessionStorage.removeItem(ADMIN_FLAG_KEY);}catch(_){};try{localStorage.removeItem(ADMIN_FLAG_KEY);}catch(_){};location.reload();return;
+  }
+  const k=prompt('管理キーを入力 / Enter admin key:','');
+  if(k===null)return;
+  if(k===ADMIN_KEY){try{sessionStorage.setItem(ADMIN_FLAG_KEY,'1');}catch(_){};try{localStorage.setItem(ADMIN_FLAG_KEY,'1');}catch(_){};location.reload();}
+  else alert('キーが違います / Wrong key');
+});
 window.addEventListener('keydown',e=>{
   if(e.ctrlKey&&e.shiftKey&&(e.key==='E'||e.key==='e')){
     e.preventDefault();
