@@ -96,8 +96,26 @@ const DEFAULTS=[
 {id:"id",no:"06",code:"ID",country:"インドネシア",countryEn:"Indonesia",importer:"Rational Idea Inc.",region:"Sumatra · Sulawesi · Bali",varieties:"Typica · Lini S · Ateng",process:"Wet Hulled / Natural",cupNote:"アーシー、スパイス、ダークチョコ",status:"active",x:79,y:60.5,color:"#e85a3c",blink:true,farm:"",producer:""}
 ];
 const params=new URLSearchParams(location.search);
-const isAdmin=params.get('admin')==='1'&&params.get('key')===ADMIN_KEY;
+const hashParams=new URLSearchParams(location.hash.replace(/^#/,''));
+const ADMIN_FLAG_KEY='linkone.adminMode';
+function checkAdmin(){
+  if(params.get('admin')==='1'&&params.get('key')===ADMIN_KEY){localStorage.setItem(ADMIN_FLAG_KEY,'1');return true;}
+  if(hashParams.get('admin')==='1'&&hashParams.get('key')===ADMIN_KEY){localStorage.setItem(ADMIN_FLAG_KEY,'1');return true;}
+  return localStorage.getItem(ADMIN_FLAG_KEY)==='1';
+}
+let isAdmin=checkAdmin();
 if(isAdmin)document.body.classList.add('admin-mode');
+// Keyboard shortcut: Ctrl+Shift+E to toggle admin mode (works inside iframe too)
+window.addEventListener('keydown',e=>{
+  if(e.ctrlKey&&e.shiftKey&&(e.key==='E'||e.key==='e')){
+    e.preventDefault();
+    const k=prompt('管理キーを入力 / Enter admin key (空欄で解除 / blank to disable):','');
+    if(k===null)return;
+    if(k===ADMIN_KEY){localStorage.setItem(ADMIN_FLAG_KEY,'1');location.reload();}
+    else if(k===''){localStorage.removeItem(ADMIN_FLAG_KEY);location.reload();}
+    else alert('キーが違います / Wrong key');
+  }
+});
 const wrapper=document.getElementById('originsMap');
 const layer=wrapper.querySelector('.origins-dots-layer');
 const popup=wrapper.querySelector('.origin-popup');
