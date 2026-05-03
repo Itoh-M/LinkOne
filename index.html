@@ -88,12 +88,12 @@ body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 const STORAGE_KEY='linkone.origins.v1';
 const ADMIN_KEY='linkone-2026';
 const DEFAULTS=[
-{id:"br",no:"01",code:"BR",country:"ブラジル",countryEn:"Brazil",importer:"Mirai Seeds Inc.",region:"Cerrado · Sul de Minas",varieties:"Yellow Bourbon · Catuaí",process:"Natural / Pulped Natural",cupNote:"ナッツ、チョコレート、オレンジ",status:"active",x:32.5,y:62,color:"#e85a3c",blink:true},
-{id:"pa",no:"02",code:"PA",country:"パナマ",countryEn:"Panama",importer:"Brisa and Tierra",region:"Boquete · Volcán",varieties:"Geisha · Caturra",process:"Washed / Natural",cupNote:"フローラル、ベルガモット、ハニー",status:"active",x:24.5,y:52,color:"#f5b431",blink:true},
-{id:"tw",no:"03",code:"TW",country:"台湾",countryEn:"Taiwan",importer:"ORIOWL Co., Ltd.",region:"Alishan · Yunlin",varieties:"Typica · SL34",process:"Washed / Honey",cupNote:"クリーン、シトラス、ブラウンシュガー",status:"active",x:81.5,y:47,color:"#2ec4b6",blink:true},
-{id:"cr",no:"04",code:"CR",country:"コスタリカ",countryEn:"Costa Rica",importer:"PuraVida",region:"Tarrazú · West Valley",varieties:"Caturra · Villa Sarchi",process:"Washed / Honey / Anaerobic",cupNote:"ストーンフルーツ、ハニー、シトラス",status:"active",x:22.5,y:50,color:"#7bc043",blink:true},
-{id:"co",no:"05",code:"CO",country:"コロンビア",countryEn:"Colombia",importer:"募集中",region:"Huila · Antioquia · Nariño",varieties:"Caturra · Castillo · Pink Bourbon",process:"Washed / Natural / Anaerobic",cupNote:"チョコレート、キャラメル、赤い果実",status:"recruiting",x:27,y:56,color:"#9aa0a6",blink:true},
-{id:"id",no:"06",code:"ID",country:"インドネシア",countryEn:"Indonesia",importer:"Rational Idea Inc.",region:"Sumatra · Sulawesi · Bali",varieties:"Typica · Lini S · Ateng",process:"Wet Hulled / Natural",cupNote:"アーシー、スパイス、ダークチョコ",status:"active",x:79,y:60.5,color:"#e85a3c",blink:true}
+{id:"br",no:"01",code:"BR",country:"ブラジル",countryEn:"Brazil",importer:"Mirai Seeds Inc.",region:"Cerrado · Sul de Minas",varieties:"Yellow Bourbon · Catuaí",process:"Natural / Pulped Natural",cupNote:"ナッツ、チョコレート、オレンジ",status:"active",x:32.5,y:62,color:"#e85a3c",blink:true,farm:"",producer:""},
+{id:"pa",no:"02",code:"PA",country:"パナマ",countryEn:"Panama",importer:"Brisa and Tierra",region:"Boquete · Volcán",varieties:"Geisha · Caturra",process:"Washed / Natural",cupNote:"フローラル、ベルガモット、ハニー",status:"active",x:24.5,y:52,color:"#f5b431",blink:true,farm:"",producer:""},
+{id:"tw",no:"03",code:"TW",country:"台湾",countryEn:"Taiwan",importer:"ORIOWL Co., Ltd.",region:"Alishan · Yunlin",varieties:"Typica · SL34",process:"Washed / Honey",cupNote:"クリーン、シトラス、ブラウンシュガー",status:"active",x:81.5,y:47,color:"#2ec4b6",blink:true,farm:"",producer:""},
+{id:"cr",no:"04",code:"CR",country:"コスタリカ",countryEn:"Costa Rica",importer:"PuraVida",region:"Tarrazú · West Valley",varieties:"Caturra · Villa Sarchi",process:"Washed / Honey / Anaerobic",cupNote:"ストーンフルーツ、ハニー、シトラス",status:"active",x:22.5,y:50,color:"#7bc043",blink:true,farm:"",producer:""},
+{id:"co",no:"05",code:"CO",country:"コロンビア",countryEn:"Colombia",importer:"募集中",region:"Huila · Antioquia · Nariño",varieties:"Caturra · Castillo · Pink Bourbon",process:"Washed / Natural / Anaerobic",cupNote:"チョコレート、キャラメル、赤い果実",status:"recruiting",x:27,y:56,color:"#9aa0a6",blink:true,farm:"",producer:""},
+{id:"id",no:"06",code:"ID",country:"インドネシア",countryEn:"Indonesia",importer:"Rational Idea Inc.",region:"Sumatra · Sulawesi · Bali",varieties:"Typica · Lini S · Ateng",process:"Wet Hulled / Natural",cupNote:"アーシー、スパイス、ダークチョコ",status:"active",x:79,y:60.5,color:"#e85a3c",blink:true,farm:"",producer:""}
 ];
 const params=new URLSearchParams(location.search);
 const isAdmin=params.get('admin')==='1'&&params.get('key')===ADMIN_KEY;
@@ -119,7 +119,7 @@ layer.appendChild(d);
 });
 }
 function showPopup(o){
-popup.innerHTML='<div class="po-no">N° '+o.no+' · '+o.code+'</div><h4>'+o.country+' <span style="color:#999;font-weight:400;font-size:12px;">/ '+(o.countryEn||'')+'</span></h4><div class="po-importer">'+(o.importer||'')+'</div><div style="color:#666;margin-bottom:6px;">'+(o.region||'')+'</div><div><b>Varieties:</b> '+(o.varieties||'—')+'</div><div><b>Process:</b> '+(o.process||'—')+'</div><div class="po-note">"'+(o.cupNote||'')+'"</div>'+(isAdmin?'<button data-edit="'+o.id+'">編集</button>':'');
+popup.innerHTML='<div class="po-no">N° '+o.no+' · '+o.code+'</div><h4>'+o.country+' <span style="color:#999;font-weight:400;font-size:12px;">/ '+(o.countryEn||'')+'</span></h4><div class="po-row"><b>COUNTRY</b><br>'+(o.country||'—')+'</div><div class="po-row"><b>REGION</b><br>'+(o.region||'—')+'</div><div class="po-row"><b>FARM</b><br>'+(o.farm||'—')+'</div><div class="po-row"><b>PRODUCER</b><br>'+(o.producer||'—')+'</div><div class="po-row"><b>IMPORTER</b><br>'+(o.importer||'—')+'</div>'+(isAdmin?'<button data-edit="'+o.id+'">編集</button>':'');
 popup.style.left=o.x+'%';popup.style.top=o.y+'%';popup.hidden=false;
 const b=popup.querySelector('[data-edit]');if(b)b.addEventListener('click',()=>openEdit(o.id));
 }
@@ -146,7 +146,7 @@ window.addEventListener('pointermove',move);window.addEventListener('pointerup',
 function openEdit(id){
 let o;
 if(id){o=origins.find(x=>x.id===id);}
-else{o={id:'o'+Date.now(),no:'',code:'',country:'新しい産地',countryEn:'',importer:'',region:'',varieties:'',process:'',cupNote:'',status:'recruiting',x:50,y:50,color:'#e85a3c',blink:true};origins.push(o);}
+else{o={id:'o'+Date.now(),no:'',code:'',country:'新しい産地',countryEn:'',importer:'',region:'',varieties:'',process:'',cupNote:'',status:'recruiting',x:50,y:50,color:'#e85a3c',blink:true,farm:"",producer:""};origins.push(o);}
 editingId=o.id;
 ['country','countryEn','code','no','importer','region','varieties','process','cupNote','status','color'].forEach(k=>document.getElementById('f_'+k).value=o[k]||'');
 document.getElementById('f_blink').checked=!!o.blink;modal.hidden=false;
