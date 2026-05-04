@@ -39,7 +39,7 @@ body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 .origin-modal-inner{background:#fff;border-radius:18px;padding:22px;width:min(480px,92vw);max-height:90vh;overflow:auto;display:grid;gap:8px;}
 .origin-modal-inner label{display:grid;gap:4px;font-size:12px;color:#444;}
 .origin-modal-inner input,.origin-modal-inner select,.origin-modal-inner textarea{font:inherit;padding:8px 10px;border:1px solid #ddd;border-radius:8px;}
-.origin-modal-actions{display:flex;gap:8px;margin-top:10px;}
+.origin-modal-actions{display:flex;gap:8px;margin-top:10phx;}
 .origin-modal-actions button{flex:1;padding:10px;border:0;border-radius:10px;cursor:pointer;font-weight:600;}
 .origin-modal-actions .save{background:#111;color:#fff;}
 .origin-modal-actions .delete{background:#e85a3c;color:#fff;}
@@ -49,7 +49,6 @@ body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 <body>
 <header>
 <a href="/"><img src="images/logo-linkone.png" alt="LinkOne" onerror="this.replaceWith(Object.assign(document.createElement('strong'),{textContent:'LinkOne',style:'font-size:24px'}));"/></a>
-<nav>サンプル依頼 →</nav>
 </header>
 <main>
 <h2>Multiple Origins in One Network</h2>
@@ -110,7 +109,7 @@ function checkAdmin(){
   if(hashParams.get('admin')==='1'&&hashParams.get('key')===ADMIN_KEY){try{localStorage.setItem(ADMIN_FLAG_KEY,'1');}catch(_){};try{sessionStorage.setItem(ADMIN_FLAG_KEY,'1');}catch(_){};return true;}
   try{if(sessionStorage.getItem(ADMIN_FLAG_KEY)==='1')return true;}catch(_){};
   try{if(localStorage.getItem(ADMIN_FLAG_KEY)==='1')return true;}catch(_){};
-  return false;
+if(typeof window.wpAdmin!=='undefined'&&window.wpAdmin===true)return true;return false;
 }
 let isAdmin=checkAdmin();
 if(isAdmin)document.body.classList.add('admin-mode');
