@@ -9,7 +9,7 @@ body{font-family:system-ui,sans-serif;margin:0;bachkground:#f7f5ef;color:#222;}
 header{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;background:#fff;}
 header img{height:56px;}
 main{max-width:1100px;margin:40px auto;padding:0 24px;}
-h2{font-size:28px;margin:40px 0 8px;}
+h2{font-size:28px;margin:40px 0 8px;color:#fff;}
 p.lead{color:#555;margin-bottom:24px;}
 .origins-map-wrapper{position:relative;width:100%;aspect-ratio:2/1;background:#000;border-radius:16px;overflow:hidden;user-select:none;}
 .map-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;}
@@ -17,6 +17,12 @@ p.lead{color:#555;margin-bottom:24px;}
 .origin-dot{position:absolute;width:14px;height:14px;border-radius:50%;transform:translate(-50%,-50%);background:var(--c,#e85a3c);box-shadow:0 0 0 4px rgba(0,0,0,.06);cursor:pointer;z-index:2;}
 .origin-dot.blink::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--c,#e85a3c);animation:pulse 1.6s ease-out infinite;}
 @keyframes pulse{0%{transform:scale(.6);opacity:1;}100%{transform:scale(2.4);opacity:0;}}
+.origins-flow-layer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+.flow-line{fill:none;stroke-width:1;stroke-dasharray:1.5 2.5;stroke-linecap:round;vector-effect:non-scaling-stroke;animation:flow-dash 1.6s linear infinite;opacity:.85;}
+@keyframes flow-dash{to{stroke-dashoffset:-8;}}
+.origin-dot.is-japan{width:32px;height:22px;border-radius:3px;background:#fff;border:1px solid rgba(0,0,0,.25);overflow:hidden;padding:0;box-shadow:0 2px 8px rgba(0,0,0,.35);}
+.origin-dot.is-japan svg{width:100%;height:100%;display:block;}
+.origin-dot.is-japan.blink::after{inset:-7px;border-radius:7px;}
 body.admin-mode .origin-dot{cursor:grab;}
 body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 .origin-popup{position:absolute;z-index:10;background:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 12px 32px rgba(0,0,0,.18);min-width:240px;max-width:280px;font-size:13px;line-height:1.5;transform:translate(8px,8px);}
@@ -51,10 +57,11 @@ body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 <a href="/"><img src="images/logo-linkone.png" alt="LinkOne" onerror="this.replaceWith(Object.assign(document.createElement('strong'),{textContent:'LinkOne',style:'font-size:24px'}));"/></a>
 </header>
 <main>
-<h2>Multiple Origins in One Network</h2>
+<h2>Multiple Origins、<br>One Network</h2>
 <div id="originsMap" class="origins-map-wrapper">
 <button id="adminToggle" class="admin-toggle" title="管理モード / Admin Mode">⚙</button>
 <img class="map-bg" src="images/world-map.png" alt="World Map" />
+<svg class="origins-flow-layer" viewBox="0 0 100 100" preserveAspectRatio="none"><defs><marker id="flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="rgba(255,255,255,0.85)"/></marker></defs></svg>
 <div class="origins-dots-layer"></div>
 <div class="origin-popup" hidden></div>
 </div>
@@ -91,9 +98,12 @@ body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 </div>
 </div>
 <script>
-const STORAGE_KEY='linkone.origins.v1';
+const STORAGE_KEY='linkone.origins.v2';
+// Drop the v1 cache so existing visitors pick up the new Japan hub + flow lines.
+try{localStorage.removeItem('linkone.origins.v1');}catch(_){}
 const ADMIN_KEY='linkone-2026';
 const DEFAULTS=[
+{id:"jp",no:"00",code:"JP",country:"日本",countryEn:"Japan",importer:"LinkOne (Tokyo Hub)",region:"Tokyo",varieties:"—",process:"—",cupNote:"集約・配送拠点",status:"active",x:84,y:41,color:"#bc002d",blink:true,isJapan:true,farm:"",producer:""},
 {id:"br",no:"01",code:"BR",country:"ブラジル",countryEn:"Brazil",importer:"Mirai Seeds Inc.",region:"Cerrado · Sul de Minas",varieties:"Yellow Bourbon · Catuaí",process:"Natural / Pulped Natural",cupNote:"ナッツ、チョコレート、オレンジ",status:"active",x:32.5,y:62,color:"#e85a3c",blink:true,farm:"",producer:""},
 {id:"pa",no:"02",code:"PA",country:"パナマ",countryEn:"Panama",importer:"Brisa and Tierra",region:"Boquete · Volcán",varieties:"Geisha · Caturra",process:"Washed / Natural",cupNote:"フローラル、ベルガモット、ハニー",status:"active",x:24.5,y:52,color:"#f5b431",blink:true,farm:"",producer:""},
 {id:"tw",no:"03",code:"TW",country:"台湾",countryEn:"Taiwan",importer:"ORIOWL Co., Ltd.",region:"Alishan · Yunlin",varieties:"Typica · SL34",process:"Washed / Honey",cupNote:"クリーン、シトラス、ブラウンシュガー",status:"active",x:81.5,y:47,color:"#2ec4b6",blink:true,farm:"",producer:""},
@@ -134,6 +144,8 @@ window.addEventListener('keydown',e=>{
 });
 const wrapper=document.getElementById('originsMap');
 const layer=wrapper.querySelector('.origins-dots-layer');
+const flowLayer=wrapper.querySelector('.origins-flow-layer');
+const flowDefs=flowLayer.querySelector('defs');
 const popup=wrapper.querySelector('.origin-popup');
 const modal=document.getElementById('originModal');
 let origins=(()=>{try{const r=localStorage.getItem(STORAGE_KEY);return r?JSON.parse(r):DEFAULTS;}catch(e){return DEFAULTS;}})();
@@ -141,15 +153,29 @@ let editingId=null;
 function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(origins));render();}
 function render(){
 layer.innerHTML='';
+while(flowLayer.lastChild&&flowLayer.lastChild!==flowDefs){flowLayer.removeChild(flowLayer.lastChild);}
+const japan=origins.find(o=>o.isJapan);
 origins.forEach(o=>{
 const d=document.createElement('div');
-d.className='origin-dot'+(o.blink?' blink':'');
+d.className='origin-dot'+(o.blink?' blink':'')+(o.isJapan?' is-japan':'');
 d.style.left=o.x+'%';d.style.top=o.y+'%';
 d.style.setProperty('--c',o.color||'#e85a3c');
 d.title=o.country+' — '+o.importer;
+if(o.isJapan){d.innerHTML='<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><circle cx="15" cy="10" r="6" fill="#bc002d"/></svg>';}
 d.addEventListener('click',e=>{e.stopPropagation();if(!d.dataset.dragged)showPopup(o);});
 if(isAdmin){enableDrag(d,o);d.addEventListener('dblclick',()=>openEdit(o.id));}
 layer.appendChild(d);
+if(japan&&o.id!==japan.id){
+const dx=japan.x-o.x,dy=japan.y-o.y,len=Math.hypot(dx,dy)||1,shrink=2.5;
+const x2=japan.x-(dx/len)*shrink,y2=japan.y-(dy/len)*shrink;
+const ln=document.createElementNS('http://www.w3.org/2000/svg','line');
+ln.setAttribute('x1',o.x);ln.setAttribute('y1',o.y);
+ln.setAttribute('x2',x2);ln.setAttribute('y2',y2);
+ln.setAttribute('stroke',o.color||'#e85a3c');
+ln.setAttribute('class','flow-line');
+ln.setAttribute('marker-end','url(#flow-arrow)');
+flowLayer.appendChild(ln);
+}
 });
 }
 function showPopup(o){
