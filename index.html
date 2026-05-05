@@ -102,149 +102,14 @@ const STORAGE_KEY='linkone.origins.v2';
 // Drop the v1 cache so existing visitors pick up the new Japan hub + flow lines.
 try{localStorage.removeItem('linkone.origins.v1');}catch(_){}
 const ADMIN_KEY='linkone-2026';
-const DEFAULTS=[[
-  {
-    "id": "jp",
-    "no": "00",
-    "code": "JP",
-    "country": "日本",
-    "countryEn": "Japan",
-    "importer": "LinkOne (Tokyo Hub)",
-    "region": "Tokyo",
-    "varieties": "—",
-    "process": "—",
-    "cupNote": "集約・配送拠点",
-    "status": "active",
-    "x": 77.55036855036856,
-    "y": 51.565110565110565,
-    "color": "#bc002d",
-    "blink": true,
-    "isJapan": true,
-    "farm": "",
-    "producer": ""
-  },
-  {
-    "id": "br",
-    "no": "01",
-    "code": "BR",
-    "country": "ブラジル",
-    "countryEn": "Brazil",
-    "importer": "Mirai Seeds Inc.",
-    "region": "Cerrado · Sul de Minas",
-    "varieties": "Yellow Bourbon · Catuaí",
-    "process": "Natural / Pulped Natural",
-    "cupNote": "ナッツ、チョコレート、オレンジ",
-    "status": "active",
-    "x": 30.35012285012285,
-    "y": 64.94840294840294,
-    "color": "#e85a3c",
-    "blink": true,
-    "farm": "",
-    "producer": ""
-  },
-  {
-    "id": "pa",
-    "no": "02",
-    "code": "PA",
-    "country": "パナマ",
-    "countryEn": "Panama",
-    "importer": "Brisa and Tierra",
-    "region": "Boquete · Volcán",
-    "varieties": "Geisha · Caturra",
-    "process": "Washed / Natural",
-    "cupNote": "フローラル、ベルガモット、ハニー",
-    "status": "active",
-    "x": 23.14864864864865,
-    "y": 56.91400491400491,
-    "color": "#f5b431",
-    "blink": true,
-    "farm": "",
-    "producer": ""
-  },
-  {
-    "id": "tw",
-    "no": "03",
-    "code": "TW",
-    "country": "台湾",
-    "countryEn": "Taiwan",
-    "importer": "ORIOWL Co., Ltd.",
-    "region": "Alishan · Yunlin",
-    "varieties": "Typica · SL34",
-    "process": "Washed / Honey",
-    "cupNote": "クリーン、シトラス、ブラウンシュガー",
-    "status": "active",
-    "x": 74.00614250614251,
-    "y": 59.40786240786241,
-    "color": "#2ec4b6",
-    "blink": true,
-    "farm": "",
-    "producer": ""
-  },
-  {
-    "id": "cr",
-    "no": "04",
-    "code": "CR",
-    "country": "コスタリカ",
-    "countryEn": "Costa Rica",
-    "importer": "PuraVida",
-    "region": "Tarrazú · West Valley",
-    "varieties": "Caturra · Villa Sarchi",
-    "process": "Washed / Honey / Anaerobic",
-    "cupNote": "ストーンフルーツ、ハニー、シトラス",
-    "status": "active",
-    "x": 19.367321867321866,
-    "y": 60.073710073710075,
-    "color": "#7bc043",
-    "blink": true,
-    "farm": "",
-    "producer": ""
-  },
-  {
-    "id": "co",
-    "no": "05",
-    "code": "CO",
-    "country": "コロンビア",
-    "countryEn": "Colombia",
-    "importer": "募集中",
-    "region": "Huila · Antioquia · Nariño",
-    "varieties": "Caturra · Castillo · Pink Bourbon",
-    "process": "Washed / Natural / Anaerobic",
-    "cupNote": "チョコレート、キャラメル、赤い果実",
-    "status": "recruiting",
-    "x": 25.894348894348894,
-    "y": 60.42260442260442,
-    "color": "#9aa0a6",
-    "blink": true,
-    "farm": "",
-    "producer": ""
-  },
-  {
-    "id": "id",
-    "no": "06",
-    "code": "ID",
-    "country": "インドネシア",
-    "countryEn": "Indonesia",
-    "importer": "Rational Idea Inc.",
-    "region": "Sumatra · Sulawesi · Bali",
-    "varieties": "Typica · Lini S · Ateng",
-    "process": "Wet Hulled / Natural",
-    "cupNote": "アーシー、スパイス、ダークチョコ",
-    "status": "active",
-    "x": 74.27027027027027,
-    "y": 65.41400491400492,
-    "color": "#e85a3c",
-    "blink": true,
-    "farm": "",
-    "producer": ""
-  }
-]
-{id:"jp",no:"00",code:"JP",country:"日本",countryEn:"Japan",importer:"LinkOne (Tokyo Hub)",region:"Tokyo",varieties:"—",process:"—",cupNote:"集約・配送拠点",status:"active",x:84,y:41,color:"#bc002d",blink:true,isJapan:true,farm:"",producer:""},
-{id:"br",no:"01",code:"BR",country:"ブラジル",countryEn:"Brazil",importer:"Mirai Seeds Inc.",region:"Cerrado · Sul de Minas",varieties:"Yellow Bourbon · Catuaí",process:"Natural / Pulped Natural",cupNote:"ナッツ、チョコレート、オレンジ",status:"active",x:32.5,y:62,color:"#e85a3c",blink:true,farm:"",producer:""},
-{id:"pa",no:"02",code:"PA",country:"パナマ",countryEn:"Panama",importer:"Brisa and Tierra",region:"Boquete · Volcán",varieties:"Geisha · Caturra",process:"Washed / Natural",cupNote:"フローラル、ベルガモット、ハニー",status:"active",x:24.5,y:52,color:"#f5b431",blink:true,farm:"",producer:""},
-{id:"tw",no:"03",code:"TW",country:"台湾",countryEn:"Taiwan",importer:"ORIOWL Co., Ltd.",region:"Alishan · Yunlin",varieties:"Typica · SL34",process:"Washed / Honey",cupNote:"クリーン、シトラス、ブラウンシュガー",status:"active",x:81.5,y:47,color:"#2ec4b6",blink:true,farm:"",producer:""},
-{id:"cr",no:"04",code:"CR",country:"コスタリカ",countryEn:"Costa Rica",importer:"PuraVida",region:"Tarrazú · West Valley",varieties:"Caturra · Villa Sarchi",process:"Washed / Honey / Anaerobic",cupNote:"ストーンフルーツ、ハニー、シトラス",status:"active",x:22.5,y:50,color:"#7bc043",blink:true,farm:"",producer:""},
-{id:"co",no:"05",code:"CO",country:"コロンビア",countryEn:"Colombia",importer:"募集中",region:"Huila · Antioquia · Nariño",varieties:"Caturra · Castillo · Pink Bourbon",process:"Washed / Natural / Anaerobic",cupNote:"チョコレート、キャラメル、赤い果実",status:"recruiting",x:27,y:56,color:"#9aa0a6",blink:true,farm:"",producer:""},
-{id:"id",no:"06",code:"ID",country:"インドネシア",countryEn:"Indonesia",importer:"Rational Idea Inc.",region:"Sumatra · Sulawesi · Bali",varieties:"Typica · Lini S · Ateng",process:"Wet Hulled / Natural",cupNote:"アーシー、スパイス、ダークチョコ",status:"active",x:79,y:60.5,color:"#e85a3c",blink:true,farm:"",producer:""}
+const DEFAULTS=[
+{id:"jp",no:"00",code:"JP",country:"日本",countryEn:"Japan",importer:"LinkOne (Tokyo Hub)",region:"Tokyo",varieties:"—",process:"—",cupNote:"集約・配送拠点",status:"active",x:77.55036855036856,y:51.565110565110565,color:"#bc002d",blink:true,isJapan:true,farm:"",producer:""},
+{id:"br",no:"01",code:"BR",country:"ブラジル",countryEn:"Brazil",importer:"Mirai Seeds Inc.",region:"Cerrado · Sul de Minas",varieties:"Yellow Bourbon · Catuaí",process:"Natural / Pulped Natural",cupNote:"ナッツ、チョコレート、オレンジ",status:"active",x:30.35012285012285,y:64.94840294840294,color:"#e85a3c",blink:true,farm:"",producer:""},
+{id:"pa",no:"02",code:"PA",country:"パナマ",countryEn:"Panama",importer:"Brisa and Tierra",region:"Boquete · Volcán",varieties:"Geisha · Caturra",process:"Washed / Natural",cupNote:"フローラル、ベルガモット、ハニー",status:"active",x:23.14864864864865,y:56.91400491400491,color:"#f5b431",blink:true,farm:"",producer:""},
+{id:"tw",no:"03",code:"TW",country:"台湾",countryEn:"Taiwan",importer:"ORIOWL Co., Ltd.",region:"Alishan · Yunlin",varieties:"Typica · SL34",process:"Washed / Honey",cupNote:"クリーン、シトラス、ブラウンシュガー",status:"active",x:74.00614250614251,y:59.40786240786241,color:"#2ec4b6",blink:true,farm:"",producer:""},
+{id:"cr",no:"04",code:"CR",country:"コスタリカ",countryEn:"Costa Rica",importer:"PuraVida",region:"Tarrazú · West Valley",varieties:"Caturra · Villa Sarchi",process:"Washed / Honey / Anaerobic",cupNote:"ストーンフルーツ、ハニー、シトラス",status:"active",x:19.367321867321866,y:60.073710073710075,color:"#7bc043",blink:true,farm:"",producer:""},
+{id:"co",no:"05",code:"CO",country:"コロンビア",countryEn:"Colombia",importer:"募集中",region:"Huila · Antioquia · Nariño",varieties:"Caturra · Castillo · Pink Bourbon",process:"Washed / Natural / Anaerobic",cupNote:"チョコレート、キャラメル、赤い果実",status:"recruiting",x:25.894348894348894,y:60.42260442260442,color:"#9aa0a6",blink:true,farm:"",producer:""},
+{id:"id",no:"06",code:"ID",country:"インドネシア",countryEn:"Indonesia",importer:"Rational Idea Inc.",region:"Sumatra · Sulawesi · Bali",varieties:"Typica · Lini S · Ateng",process:"Wet Hulled / Natural",cupNote:"アーシー、スパイス、ダークチョコ",status:"active",x:74.27027027027027,y:65.41400491400492,color:"#e85a3c",blink:true,farm:"",producer:""}
 ];
 const params=new URLSearchParams(location.search);
 const hashParams=new URLSearchParams(location.hash.replace(/^#/,''));
@@ -355,7 +220,42 @@ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=
 };
 function showToast(msg,ms){let t=document.querySelector('.toast');if(!t){t=document.createElement('div');t.className='toast';document.body.appendChild(t);}t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),ms||3000);}
 document.getElementById('copyJsonBtn').onclick=async()=>{const json=JSON.stringify(origins,null,2);try{await navigator.clipboard.writeText(json);showToast('✅ JSONをコピーしました！GitHubの index.html にペーストして保存してください',4000);}catch(e){const ta=document.createElement('textarea');ta.value=json;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();showToast('✅ JSONをコピーしました',4000);}};
-document.getElementById('publishBtn').onclick=async()=>{const json=JSON.stringify(origins,null,2);try{await navigator.clipboard.writeText(json);}catch(e){}const ok=confirm('現在のデータをクリップボードにコピーしました。\n\nGitHubの編集ページを開いて、index.html 内の DEFAULTS 配列をこのJSONで置き換えて、「Commit changes」で保存してください。\n\n保存後、約1分で全訪問者に反映されます。\n\nGitHubの編集ページを開きますか？');if(ok){window.open('https://github.com/Itoh-M/LinkOne/edit/main/index.html','_blank');}};
+// 💾 GitHubに保存 — GitHub API へ直接コミット(編集後の HP に約30秒で自動反映)。
+// 初回のみ Personal Access Token (PAT) の入力が必要。PAT は sessionStorage に保持
+// (タブを閉じれば消える)。fine-grained で Itoh-M/LinkOne の Contents: Read & write のみが推奨。
+document.getElementById('publishBtn').onclick=async()=>{
+  const REPO='Itoh-M/LinkOne',PATH='index.html',TKEY='linkone_gh_token';
+  let token=sessionStorage.getItem(TKEY);
+  if(!token){
+    token=prompt('GitHub Personal Access Token を入力してください。\n(Itoh-M/LinkOne への Contents:write 権限が必要です)\n\n発行: https://github.com/settings/personal-access-tokens/new');
+    if(!token)return;
+    sessionStorage.setItem(TKEY,token);
+  }
+  const decode=b64=>{const bin=atob(b64.replace(/\n/g,''));const a=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);return new TextDecoder('utf-8').decode(a);};
+  const encode=str=>{const a=new TextEncoder().encode(str);let bin='';a.forEach(b=>bin+=String.fromCharCode(b));return btoa(bin);};
+  const fmt=v=>typeof v==='string'?JSON.stringify(v):v;
+  const buildDefaults=()=>'const DEFAULTS=[\n'+origins.map(o=>'{'+Object.entries(o).map(([k,v])=>k+':'+fmt(v)).join(',')+'}').join(',\n')+'\n];';
+  showToast('GitHub に保存中…',60000);
+  try{
+    const head={Authorization:'Bearer '+token,Accept:'application/vnd.github+json'};
+    const g=await fetch(`https://api.github.com/repos/${REPO}/contents/${PATH}`,{headers:head});
+    if(g.status===401||g.status===404){sessionStorage.removeItem(TKEY);throw new Error('認証失敗 ('+g.status+'): Token を確認して再度お試しください。');}
+    if(!g.ok)throw new Error('GitHub 取得失敗: '+g.status+' '+g.statusText);
+    const f=await g.json();
+    const cur=decode(f.content);
+    const nxt=cur.replace(/const DEFAULTS=\[[\s\S]*?\n\];/,buildDefaults());
+    if(nxt===cur)throw new Error('index.html 内の DEFAULTS 配列が見つかりませんでした。');
+    const p=await fetch(`https://api.github.com/repos/${REPO}/contents/${PATH}`,{
+      method:'PUT',headers:{...head,'Content-Type':'application/json'},
+      body:JSON.stringify({message:'Update origin dots via admin panel',content:encode(nxt),sha:f.sha})
+    });
+    if(!p.ok){const t=await p.text();throw new Error('保存失敗: '+p.status+' '+t);}
+    showToast('✅ GitHubに保存しました。約30秒でVercelに自動反映されます。',6000);
+  }catch(e){
+    showToast('',1);
+    alert('エラー: '+e.message);
+  }
+};
 document.getElementById('importFile').onchange=async e=>{
 const f=e.target.files[0];if(!f)return;
 try{origins=JSON.parse(await f.text());persist();}catch(_){alert('JSONエラー');}
