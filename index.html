@@ -25,8 +25,8 @@ body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 .origin-popup .po-importer{font-weight:600;margin-bottom:4px;}
 .origin-popup .po-note{margin-top:8px;color:#444;font-style:italic;}
 .origin-popup button{margin-top:10px;padding:6px 10px;border:1px solid #ddd;background:#fff;border-radius:8px;cursor:pointer;}
-.admin-toggle{position:absolute;top:8px;right:8px;z-index:5;width:28px;height:28px;border:0;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);} .admin-toggle:hover{background:rgba(255,255,255,.3);}
-.admin-panel{position:fixed;bottom:16px;left:16px;z-index:9998;background:#111;color:#fff;padding:12px 14px;border-radius:14px;display:flex;gap:8px;align-items:center;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.25);}
+.admin-toggle{position:absolute;top:8px;right:8px;z-index:5;width:28px;height:28px;border:0;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;cursor:pointer;font-size:14px;line-height:1;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px);} body.admin-mode .admin-toggle,body.admin-mode .admin-panel{display:flex;} .admin-toggle:hover{background:rgba(255,255,255,.3);}
+.admin-panel{position:fixed;bottom:16px;left:16px;z-index:9998;background:#111;color:#fff;padding:12px 14px;border-radius:14px;display:none;gap:8px;align-items:center;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.25);}
 .admin-panel button,.admin-panel .import-label{background:#fff;color:#111;border:0;padding:8px 12px;border-radius:10px;cursor:pointer;font-size:13px;}
 .admin-panel button.danger{background:#e85a3c;color:#fff;}
 .admin-panel button.primary{background:#22c55e;color:#fff;font-weight:700;border-color:#16a34a}
