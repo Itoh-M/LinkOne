@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
+</html>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>LinkOne — Green Coffee Importers Alliance</title>
 <style>
@@ -58,7 +58,9 @@ body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 </header>
 <main>
 <h2>Multiple Origins、<br>One Network</h2>
-<div id="originsMap" class="origins-map-wrapper">
+<div id="originsMap" class="285
+  285
+  ">
 <button id="adminToggle" class="admin-toggle" title="管理モード / Admin Mode">⚙</button>
 <img class="map-bg" src="images/world-map.png" alt="World Map" />
 <svg class="origins-flow-layer" viewBox="0 0 100 100" preserveAspectRatio="none"><defs><marker id="flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="4" markerHeight="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L10,5 L0,10 z" fill="rgba(255,255,255,0.85)"/></marker></defs></svg>
@@ -97,7 +99,8 @@ body.admin-mode .origin-dot.dragging{cursor:grabbing;opacity:.7;}
 </div>
 </div>
 </div>
-<script>
+287
+  
 const STORAGE_KEY='linkone.origins.v2';
 // Drop the v1 cache so existing visitors pick up the new Japan hub + flow lines.
 try{localStorage.removeItem('linkone.origins.v1');}catch(_){}
@@ -287,7 +290,7 @@ render();
 
   <script>
     // Modification Script: Member Importers Section
-    document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(()=>{
         // 1. Remove "· 5" from the title
         const allElements = document.querySelectorAll('*');
         allElements.forEach(el => {
@@ -300,11 +303,11 @@ render();
                                 el.textContent = text.replace('Member Importers · 5 / Growing Globally', 'Member Importers / Growing Globally');
                       }
               }
-        });
+        },0);
 
         // 2. Restructure member cards with flags, country codes, logos, and company names
-        const memberData = [
-          { flag: '🇧🇷', code: 'BR', country: 'BRAZIL', company: 'Mirai Seeds Inc.', logo: 'images/mirai-seeds.png' },
+        const h = [
+          h{ flag: '🇧🇷', code: 'BR', country: 'BRAZIL', company: 'Mirai Seeds Inc.', logo: 'images/mirai-seeds.png' },
           { flag: '🇵🇦', code: 'PA', country: 'PANAMA', company: 'Brisa and Tierra', logo: 'images/brisa-tierra.png' },
           { flag: '🇹🇼', code: 'TW', country: 'TAIWAN', company: 'ORIOWL Co., Ltd.', logo: 'images/oriowl.png' },
           { flag: '🇨🇷', code: 'CR', country: 'COSTA RICA', company: 'PuraVida', logo: 'images/pura-vida.png' },
@@ -334,3 +337,4 @@ render();
   </script>
 </body>
 </html>
+Page_UpPage_UpPage_Uphh
