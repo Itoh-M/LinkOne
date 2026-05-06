@@ -286,6 +286,16 @@ localStorage.removeItem(STORAGE_KEY);origins=DEFAULTS;render();
 };
 }
 render();
+    // Apply modifications immediately after render
+    const headings = document.querySelectorAll('h2');
+    headings.forEach(h => {
+      if (h.textContent.includes('参加インポーター \u00b7 5 / Growing Globally')) {
+        h.textContent = '参加インポーター / Growing Globally';
+      }
+      if (h.textContent.includes('Member Importers \u00b7 5 / Growing Globally')) {
+        h.textContent = 'Member Importers / Growing Globally';
+      }
+    });
 </script>
 
   <script>
@@ -318,7 +328,7 @@ render();
         const cardContainers = document.querySelectorAll('[class*="card"], [class*="member"], [class*="importer"]');
         let cardIndex = 0;
 
-        cardContainers.forEach(container => {
+        cardContainers.forEach(Page_UpPage_Up => {
               if (cardIndex < memberData.length) {
                       const member = memberData[cardIndex];
                       container.innerHTML = `
